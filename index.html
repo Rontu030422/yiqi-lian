@@ -1,1 +1,52 @@
-﻿<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><title>一起练</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="apple-mobile-web-app-capable" content="yes"><style>body {  font-family: -apple-system, BlinkMacSystemFont, sans-serif;  background: #f5f6f7;  text-align: center;  padding: 20px;}h1 { margin-bottom: 6px; }.card {  background: #fff;  border-radius: 18px;  padding: 18px;  margin: 15px 0;  box-shadow: 0 4px 10px rgba(0,0,0,.06);}button {  padding: 14px 24px;  font-size: 16px;  border: none;  border-radius: 14px;  background: #000;  color: #fff;}#man {  font-size: 80px;  margin: 18px 0;}/* 动画 */.jump { animation: jump .6s infinite alternate; }@keyframes jump { to { transform: scale(1.2); } }.squat { animation: squat .7s infinite alternate; }@keyframes squat { to { transform: translateY(20px); } }.leg { animation: leg .4s infinite alternate; }@keyframes leg { to { transform: rotate(10deg); } }.runFast { animation: runFast .2s infinite alternate; }@keyframes runFast { to { transform: translateX(12px); } }.runSlow { animation: runSlow 1s infinite alternate; }@keyframes runSlow { to { transform: translateY(-10px); } }</style></head><body><h1>🏃‍♂️ 一起练</h1><p>不累，但一定要动</p><div id="man">🏃‍♂️</div><div class="card">  <h2 id="action">等待提醒…</h2>  <button onclick="start()">立即开始</button></div><div class="card">  今日完成：<span id="count">0</span> 次</div><script>const today = new Date().toDateString();let count = Number(localStorage.getItem("count_" + today) || 0);document.getElementById("count").innerText = count;const man = document.getElementById("man");const actionText = document.getElementById("action");/* 动作池 */const actions = [  { text: "开合跳 × 10 个", cls: "jump" },  { text: "深蹲 × 10 个", cls: "squat" },  { text: "抬腿 × 30 个", cls: "leg" },  { text: "原地快跑 1 分钟", cls: "runFast" }];/* 每天固定慢跑一次 */if (!localStorage.getItem("slowrun
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>一起练</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background:#f5f6f7;
+  text-align:center;
+  padding:20px;
+}
+button {
+  padding:14px 24px;
+  font-size:16px;
+  border:none;
+  border-radius:12px;
+  background:#000;
+  color:#fff;
+}
+#man {
+  font-size:80px;
+  margin:20px 0;
+}
+.jump {
+  animation: jump .5s infinite alternate;
+}
+@keyframes jump {
+  to { transform: scale(1.2); }
+}
+</style>
+</head>
+
+<body>
+
+<h1>🏃‍♂️ 一起练</h1>
+<p>如果你看到小人会动，说明一切正常</p>
+
+<div id="man">🏃‍♂️</div>
+
+<button onclick="start()">开始</button>
+
+<script>
+function start() {
+  document.getElementById("man").className = "jump";
+  alert("运行正常！");
+}
+</script>
+
+</body>
+</html>
