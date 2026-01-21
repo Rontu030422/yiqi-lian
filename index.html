@@ -1,162 +1,161 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>一起练</title>
-
-<style>
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  text-align: center;
-  background: #f6f7fb;
-  margin: 0;
-  padding: 20px;
-}
-
-h1 {
-  margin-top: 10px;
-}
-
-.card {
-  background: #fff;
-  border-radius: 16px;
-  padding: 24px;
-  margin-top: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-}
-
-.avatar {
-  font-size: 90px;
-  margin: 20px 0;
-}
-
-/* ===== 动作动画 ===== */
-
-/* 开合跳 */
-.jumping-jack {
-  animation: jack 1s infinite;
-}
-@keyframes jack {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
-}
-
-/* 深蹲 */
-.squat {
-  animation: squat 1.2s infinite;
-}
-@keyframes squat {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(25px); }
-  100% { transform: translateY(0); }
-}
-
-/* 抬腿 */
-.high-knees {
-  animation: knees 0.6s infinite alternate;
-}
-@keyframes knees {
-  from { transform: translateY(0); }
-  to { transform: translateY(-20px); }
-}
-
-/* 慢跑 */
-.jogging {
-  animation: jog 0.4s infinite alternate;
-}
-@keyframes jog {
-  from { transform: translateX(-10px); }
-  to { transform: translateX(10px); }
-}
-
-/* 快跑 */
-.sprint {
-  animation: sprint 0.2s infinite alternate;
-}
-@keyframes sprint {
-  from { transform: translateX(-15px) scale(1); }
-  to { transform: translateX(15px) scale(1.1); }
-}
-
-button {
-  background: #4a6cf7;
-  color: #fff;
-  border: none;
-  border-radius: 30px;
-  padding: 14px 28px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-button:active {
-  transform: scale(0.96);
-}
-
-.result {
-  margin-top: 16px;
-  font-size: 16px;
-  color: #333;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>一起练 - 极简运动</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body { -webkit-tap-highlight-color: transparent; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        .safe-area-bottom { padding-bottom: env(safe-area-inset-bottom); }
+        @keyframes pulse-soft { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
+        .animate-pulse-soft { animation: pulse-soft 2s infinite; }
+    </style>
 </head>
+<body class="bg-gray-50 text-gray-900 overflow-hidden">
+    <div id="root"></div>
 
-<body>
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
 
-<h1>一起练 💪</h1>
+        const STAGES = {
+            IDLE: 'idle',
+            REMINDER: 'reminder',
+            IN_PROGRESS: 'in_progress',
+            COMPLETED: 'completed'
+        };
 
-<div class="card">
-  <h2 id="actionName"></h2>
-  <p id="actionInfo"></p>
+        const EXERCISE = {
+            name: "开合跳",
+            target: "30 秒",
+            duration: 30
+        };
 
-  <div id="avatar" class="avatar">🏃‍♂️</div>
+        function App() {
+            const [stage, setStage] = useState(STAGES.IDLE);
+            const [timeLeft, setTimeLeft] = useState(EXERCISE.duration);
+            const [count, setCount] = useState(parseInt(localStorage.getItem('done_count') || '0'));
+            
+            // 倒计时逻辑
+            useEffect(() => {
+                let timer;
+                if (stage === STAGES.IN_PROGRESS && timeLeft > 0) {
+                    timer = setInterval(() => setTimeLeft(prev => prev - 1), 1000);
+                    // 最后3秒震动提醒
+                    if (timeLeft <= 3 && navigator.vibrate) navigator.vibrate(100);
+                } else if (timeLeft === 0 && stage === STAGES.IN_PROGRESS) {
+                    finishExercise();
+                }
+                return () => clearInterval(timer);
+            }, [stage, timeLeft]);
 
-  <button onclick="startTraining()">开始这次锻炼</button>
+            const startExercise = () => {
+                if (navigator.vibrate) navigator.vibrate(50);
+                setTimeLeft(EXERCISE.duration);
+                setStage(STAGES.IN_PROGRESS);
+            };
 
-  <div class="result" id="result"></div>
-</div>
+            const finishExercise = () => {
+                if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+                const newCount = count + 1;
+                setCount(newCount);
+                localStorage.setItem('done_count', newCount);
+                setStage(STAGES.COMPLETED);
+            };
 
-<script>
-// ===== 动作配置 =====
-const actions = [
-  { name: "开合跳", info: "× 10", animation: "jumping-jack" },
-  { name: "深蹲", info: "× 10", animation: "squat" },
-  { name: "抬腿", info: "× 30", animation: "high-knees" },
-  { name: "原地慢跑", info: "15 分钟", animation: "jogging" },
-  { name: "原地快跑", info: "1 分钟", animation: "sprint" }
-];
+            const reset = () => {
+                setStage(STAGES.IDLE);
+                setTimeLeft(EXERCISE.duration);
+            };
 
-let todayGroup = 0;
-let currentAction = null;
+            return (
+                <div className="h-screen w-full flex flex-col items-center justify-center p-6 relative">
+                    
+                    {/* --- 1. 空闲态 --- */}
+                    {stage === STAGES.IDLE && (
+                        <div className="w-full max-w-sm animate-in fade-in zoom-in duration-300">
+                            <div className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 text-center">
+                                <div className="inline-block p-4 bg-orange-100 rounded-2xl mb-6">
+                                    <span className="text-4xl">🔥</span>
+                                </div>
+                                <p className="text-gray-500 font-medium mb-1">准备好挑战了吗？</p>
+                                <h1 className="text-3xl font-black mb-6">{EXERCISE.name} <span className="text-orange-500">× {EXERCISE.target}</span></h1>
+                                <button 
+                                    onClick={startExercise}
+                                    className="w-full bg-black text-white py-5 rounded-2xl text-xl font-bold shadow-lg active:scale-95 transition-transform"
+                                >
+                                    即刻开始
+                                </button>
+                                <p className="mt-6 text-sm text-gray-400">今日已达成：{count} 次</p>
+                            </div>
+                        </div>
+                    )}
 
-// ===== 随机显示一个动作 =====
-function showRandomAction() {
-  currentAction = actions[Math.floor(Math.random() * actions.length)];
+                    {/* --- 2. 运动中 --- */}
+                    {stage === STAGES.IN_PROGRESS && (
+                        <div className="w-full h-full flex flex-col items-center justify-between py-20 animate-in fade-in slide-in-from-bottom-10">
+                            <div className="text-center">
+                                <h2 className="text-2xl font-bold text-gray-400 mb-2">{EXERCISE.name}</h2>
+                                <div className="text-8xl font-black tabular-nums tracking-tighter">
+                                    {timeLeft}<span className="text-3xl ml-2 text-gray-400">s</span>
+                                </div>
+                            </div>
+                            
+                            {/* 进度环或指示器 */}
+                            <div className="w-full px-10">
+                                <div className="h-4 w-full bg-gray-200 rounded-full overflow-hidden">
+                                    <div 
+                                        className="h-full bg-orange-500 transition-all duration-1000 ease-linear"
+                                        style={{ width: `${(timeLeft / EXERCISE.duration) * 100}%` }}
+                                    ></div>
+                                </div>
+                            </div>
 
-  document.getElementById("actionName").innerText = currentAction.name;
-  document.getElementById("actionInfo").innerText = currentAction.info;
+                            <button onClick={reset} className="text-gray-400 font-medium">放弃本次</button>
+                        </div>
+                    )}
 
-  const avatar = document.getElementById("avatar");
-  avatar.className = "avatar " + currentAction.animation;
+                    {/* --- 3. 完成态 & 社交 Overlay --- */}
+                    {stage === STAGES.COMPLETED && (
+                        <div className="w-full max-w-sm space-y-4 animate-in fade-in zoom-in duration-500">
+                            <div className="bg-green-500 rounded-3xl p-8 text-white text-center shadow-2xl">
+                                <div className="text-6xl mb-4">🏆</div>
+                                <h2 className="text-3xl font-black mb-2">完成了！</h2>
+                                <p className="opacity-90 font-medium text-lg">你今天已经赢了 {count} 次</p>
+                            </div>
 
-  document.getElementById("result").innerText = "";
-}
+                            {/* 社交 Overlay 模拟 */}
+                            <div className="bg-white rounded-3xl p-6 shadow-xl border border-gray-100 flex items-center justify-between">
+                                <div className="flex -space-x-2">
+                                    {[1, 2, 3].map(i => (
+                                        <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-gray-200 flex items-center justify-center text-[10px] font-bold">
+                                            User
+                                        </div>
+                                    ))}
+                                </div>
+                                <p className="text-sm text-gray-500 flex-1 ml-4 text-left">3 位好友为你点了赞</p>
+                                <button className="bg-blue-50 text-blue-600 px-4 py-2 rounded-xl text-sm font-bold active:scale-90 transition">
+                                    💪 我也来
+                                </button>
+                            </div>
 
-// ===== 开始并完成本次训练 =====
-function startTraining() {
-  todayGroup++;
+                            <button 
+                                onClick={reset}
+                                className="w-full py-4 text-gray-500 font-bold"
+                            >
+                                返回主页
+                            </button>
+                        </div>
+                    )}
+                </div>
+            );
+        }
 
-  document.getElementById("result").innerText =
-    `✅ 本次训练完成\n今天已完成第 ${todayGroup} 组`;
-
-  // 停止动画
-  document.getElementById("avatar").className = "avatar";
-}
-
-// 页面加载先显示一次
-showRandomAction();
-</script>
-
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
