@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>一起练</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background:#f5f6f7;
+  text-align:center;
+  padding:20px;
+}
+button {
+  padding:14px 24px;
+  font-size:16px;
+  border:none;
+  border-radius:12px;
+  background:#000;
+  color:#fff;
+}
+#man {
+  font-size:80px;
+  margin:20px 0;
+}
+.jump {
+  animation: jump .5s infinite alternate;
+}
+@keyframes jump {
+  to { transform: scale(1.2); }
+}
+</style>
+</head>
+
+<body>
+
+<h1>🏃‍♂️ 一起练</h1>
+<p>如果你看到小人会动，说明一切正常</p>
+
+<div id="man">🏃‍♂️</div>
+
+<button onclick="start()">开始</button>
+
+<script>
+function start() {
+  document.getElementById("man").className = "jump";
+  alert("运行正常！");
+}
+</script>
+
+</body>
+</html>
