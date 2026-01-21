@@ -1,111 +1,161 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>一起练</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background:#f5f6f7;
-  text-align:center;
-  padding:20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  text-align: center;
+  background: #f6f7fb;
+  margin: 0;
+  padding: 20px;
 }
 
-h1 { margin-bottom: 6px; }
+h1 {
+  margin-top: 10px;
+}
 
 .card {
-  background:#fff;
-  border-radius:18px;
-  padding:18px;
-  margin:15px 0;
-  box-shadow:0 4px 10px rgba(0,0,0,.06);
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.avatar {
+  font-size: 90px;
+  margin: 20px 0;
+}
+
+/* ===== 动作动画 ===== */
+
+/* 开合跳 */
+.jumping-jack {
+  animation: jack 1s infinite;
+}
+@keyframes jack {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* 深蹲 */
+.squat {
+  animation: squat 1.2s infinite;
+}
+@keyframes squat {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(25px); }
+  100% { transform: translateY(0); }
+}
+
+/* 抬腿 */
+.high-knees {
+  animation: knees 0.6s infinite alternate;
+}
+@keyframes knees {
+  from { transform: translateY(0); }
+  to { transform: translateY(-20px); }
+}
+
+/* 慢跑 */
+.jogging {
+  animation: jog 0.4s infinite alternate;
+}
+@keyframes jog {
+  from { transform: translateX(-10px); }
+  to { transform: translateX(10px); }
+}
+
+/* 快跑 */
+.sprint {
+  animation: sprint 0.2s infinite alternate;
+}
+@keyframes sprint {
+  from { transform: translateX(-15px) scale(1); }
+  to { transform: translateX(15px) scale(1.1); }
 }
 
 button {
-  padding:14px 24px;
-  font-size:16px;
-  border:none;
-  border-radius:14px;
-  background:#000;
-  color:#fff;
+  background: #4a6cf7;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-#man {
-  font-size:80px;
-  margin:20px 0;
+button:active {
+  transform: scale(0.96);
 }
 
-/* 动画 */
-.jump { animation: jump .6s infinite alternate; }
-@keyframes jump { to { transform: scale(1.2); } }
-
-.squat { animation: squat .7s infinite alternate; }
-@keyframes squat { to { transform: translateY(18px); } }
-
-.leg { animation: leg .4s infinite alternate; }
-@keyframes leg { to { transform: rotate(10deg); } }
-
-.runFast { animation: runFast .2s infinite alternate; }
-@keyframes runFast { to { transform: translateX(12px); } }
-
-.runSlow { animation: runSlow 1s infinite alternate; }
-@keyframes runSlow { to { transform: translateY(-10px); } }
+.result {
+  margin-top: 16px;
+  font-size: 16px;
+  color: #333;
+}
 </style>
 </head>
 
 <body>
 
-<h1>🏃‍♂️ 一起练</h1>
-<p>不累，但一定要动</p>
-
-<div id="man">🏃‍♂️</div>
+<h1>一起练 💪</h1>
 
 <div class="card">
-  <h2 id="action">点击开始</h2>
-  <button onclick="start()">开始这次锻炼</button>
-</div>
+  <h2 id="actionName"></h2>
+  <p id="actionInfo"></p>
 
-<div class="card">
-  今日完成：<span id="count">0</span> 次
+  <div id="avatar" class="avatar">🏃‍♂️</div>
+
+  <button onclick="startTraining()">开始这次锻炼</button>
+
+  <div class="result" id="result"></div>
 </div>
 
 <script>
-const today = new Date().toDateString();
-let count = Number(localStorage.getItem("count_" + today) || 0);
-document.getElementById("count").innerText = count;
-
-const man = document.getElementById("man");
-const actionText = document.getElementById("action");
-
-/* 动作池 */
+// ===== 动作配置 =====
 const actions = [
-  { text: "开合跳 × 10 个", cls: "jump" },
-  { text: "深蹲 × 10 个", cls: "squat" },
-  { text: "抬腿 × 30 个", cls: "leg" },
-  { text: "原地快跑 1 分钟", cls: "runFast" }
+  { name: "开合跳", info: "× 10", animation: "jumping-jack" },
+  { name: "深蹲", info: "× 10", animation: "squat" },
+  { name: "抬腿", info: "× 30", animation: "high-knees" },
+  { name: "原地慢跑", info: "15 分钟", animation: "jogging" },
+  { name: "原地快跑", info: "1 分钟", animation: "sprint" }
 ];
 
-/* 每天固定慢跑一次 */
-if (!localStorage.getItem("slowrun_" + today)) {
-  setTimeout(() => {
-    actionText.innerText = "📌 原地慢跑 15 分钟";
-    man.className = "runSlow";
-    localStorage.setItem("slowrun_" + today, "done");
-  }, 800);
+let todayGroup = 0;
+let currentAction = null;
+
+// ===== 随机显示一个动作 =====
+function showRandomAction() {
+  currentAction = actions[Math.floor(Math.random() * actions.length)];
+
+  document.getElementById("actionName").innerText = currentAction.name;
+  document.getElementById("actionInfo").innerText = currentAction.info;
+
+  const avatar = document.getElementById("avatar");
+  avatar.className = "avatar " + currentAction.animation;
+
+  document.getElementById("result").innerText = "";
 }
 
-function start() {
-  man.className = "";
-  const a = actions[Math.floor(Math.random() * actions.length)];
-  actionText.innerText = a.text;
-  man.className = a.cls;
+// ===== 开始并完成本次训练 =====
+function startTraining() {
+  todayGroup++;
 
-  count++;
-  localStorage.setItem("count_" + today, count);
-  document.getElementById("count").innerText = count;
+  document.getElementById("result").innerText =
+    `✅ 本次训练完成\n今天已完成第 ${todayGroup} 组`;
+
+  // 停止动画
+  document.getElementById("avatar").className = "avatar";
 }
+
+// 页面加载先显示一次
+showRandomAction();
 </script>
 
 </body>
