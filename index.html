@@ -28,73 +28,94 @@
         .a-slide-up { animation: yq-slide-up 0.3s ease-out; }
         @keyframes yq-pulse-soft { 0%, 100% { opacity: 1; } 50% { opacity: 0.75; } }
         .a-pulse-soft { animation: yq-pulse-soft 2s infinite; }
-        /* ===== 运动演示小人：纯 CSS 骨骼动画 ===== */
-        .demo-wrap { position: relative; width: 130px; margin: 0 auto; }
-        .demo-wrap::after { content: ''; position: absolute; bottom: -2px; left: 50%; width: 96px; height: 10px; margin-left: -48px; border-radius: 50%; background: rgba(249,115,22,0.15); }
-        .demo-fig { position: relative; width: 110px; height: 165px; margin: 0 auto; }
-        .demo-fig > div { position: absolute; background: #1f2937; }
-        .d-head { top: 0; left: 50%; width: 30px; height: 30px; margin-left: -15px; border-radius: 50%; }
-        .d-torso { top: 32px; left: 50%; width: 9px; height: 58px; margin-left: -4.5px; border-radius: 5px; transform-origin: top center; }
-        .d-arm { top: 36px; width: 7px; height: 46px; border-radius: 4px; transform-origin: top center; }
-        .d-arm-l { left: 50%; margin-left: -9px; }
-        .d-arm-r { left: 50%; margin-left: 2px; }
-        .d-leg { top: 88px; width: 8px; height: 58px; border-radius: 4px; transform-origin: top center; }
-        .d-leg-l { left: 50%; margin-left: -10px; }
-        .d-leg-r { left: 50%; margin-left: 2px; }
-        /* 开合跳：跳起 + 手脚向外张开（CSS 里正角度=向左摆：左肢用正、右肢用负） */
-        @keyframes d-jj-bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
-        @keyframes d-jj-arm-l { 0%,100% { transform: rotate(6deg); } 50% { transform: rotate(150deg); } }
-        @keyframes d-jj-arm-r { 0%,100% { transform: rotate(-6deg); } 50% { transform: rotate(-150deg); } }
-        @keyframes d-jj-leg-l { 0%,100% { transform: rotate(3deg); } 50% { transform: rotate(30deg); } }
-        @keyframes d-jj-leg-r { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(-30deg); } }
-        .demo-jumping-jack { animation: d-jj-bounce 1s ease-in-out infinite; }
-        .demo-jumping-jack .d-arm-l { animation: d-jj-arm-l 1s ease-in-out infinite; }
-        .demo-jumping-jack .d-arm-r { animation: d-jj-arm-r 1s ease-in-out infinite; }
-        .demo-jumping-jack .d-leg-l { animation: d-jj-leg-l 1s ease-in-out infinite; }
-        .demo-jumping-jack .d-leg-r { animation: d-jj-leg-r 1s ease-in-out infinite; }
-        /* 深蹲：下蹲 + 手臂向两侧上举 */
-        @keyframes d-sq-drop { 0%,100% { transform: translateY(0); } 50% { transform: translateY(38px); } }
-        @keyframes d-sq-leg { 0%,100% { transform: scaleY(1); } 50% { transform: scaleY(0.5); } }
-        @keyframes d-sq-arm-l { 0%,100% { transform: rotate(6deg); } 50% { transform: rotate(100deg); } }
-        @keyframes d-sq-arm-r { 0%,100% { transform: rotate(-6deg); } 50% { transform: rotate(-100deg); } }
-        .demo-squat { animation: d-sq-drop 1.8s ease-in-out infinite; }
-        .demo-squat .d-leg-l, .demo-squat .d-leg-r { animation: d-sq-leg 1.8s ease-in-out infinite; }
-        .demo-squat .d-arm-l { animation: d-sq-arm-l 1.8s ease-in-out infinite; }
-        .demo-squat .d-arm-r { animation: d-sq-arm-r 1.8s ease-in-out infinite; }
-        /* 高抬腿：双腿交替向外抬起 */
-        @keyframes d-hk-bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-        @keyframes d-hk-leg-l { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(70deg); } }
-        @keyframes d-hk-leg-r { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-70deg); } }
-        @keyframes d-hk-arm-l { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(25deg); } }
-        @keyframes d-hk-arm-r { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-25deg); } }
-        .demo-high-knee { animation: d-hk-bounce 0.7s ease-in-out infinite; }
-        .demo-high-knee .d-leg-l { animation: d-hk-leg-l 0.7s ease-in-out infinite; }
-        .demo-high-knee .d-leg-r { animation: d-hk-leg-r 0.7s ease-in-out infinite; animation-delay: -0.35s; }
-        .demo-high-knee .d-arm-l { animation: d-hk-arm-l 0.7s ease-in-out infinite; animation-delay: -0.35s; }
-        .demo-high-knee .d-arm-r { animation: d-hk-arm-r 0.7s ease-in-out infinite; }
-        /* 慢跑：双腿交替小幅摆动 */
-        @keyframes d-jog-bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-        @keyframes d-jog-leg-l { 0%,100% { transform: rotate(-5deg); } 50% { transform: rotate(30deg); } }
-        @keyframes d-jog-leg-r { 0%,100% { transform: rotate(5deg); } 50% { transform: rotate(-30deg); } }
-        @keyframes d-jog-arm-l { 0%,100% { transform: rotate(5deg); } 50% { transform: rotate(-20deg); } }
-        @keyframes d-jog-arm-r { 0%,100% { transform: rotate(-5deg); } 50% { transform: rotate(20deg); } }
-        .demo-jog { animation: d-jog-bounce 0.9s ease-in-out infinite; }
-        .demo-jog .d-leg-l { animation: d-jog-leg-l 0.9s ease-in-out infinite; }
-        .demo-jog .d-leg-r { animation: d-jog-leg-r 0.9s ease-in-out infinite; animation-delay: -0.45s; }
-        .demo-jog .d-arm-l { animation: d-jog-arm-l 0.9s ease-in-out infinite; }
-        .demo-jog .d-arm-r { animation: d-jog-arm-r 0.9s ease-in-out infinite; animation-delay: -0.45s; }
-        /* 快跑：双腿交替大幅高频摆动 */
-        @keyframes d-sp-bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        @keyframes d-sp-leg-l { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(50deg); } }
-        @keyframes d-sp-leg-r { 0%,100% { transform: rotate(8deg); } 50% { transform: rotate(-50deg); } }
-        @keyframes d-sp-arm-l { 0%,100% { transform: rotate(8deg); } 50% { transform: rotate(-40deg); } }
-        @keyframes d-sp-arm-r { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(40deg); } }
-        .demo-sprint { animation: d-sp-bounce 0.45s ease-in-out infinite; }
-        .demo-sprint .d-leg-l { animation: d-sp-leg-l 0.45s ease-in-out infinite; }
-        .demo-sprint .d-leg-r { animation: d-sp-leg-r 0.45s ease-in-out infinite; animation-delay: -0.225s; }
-        .demo-sprint .d-arm-l { animation: d-sp-arm-l 0.45s ease-in-out infinite; }
-        .demo-sprint .d-arm-r { animation: d-sp-arm-r 0.45s ease-in-out infinite; animation-delay: -0.225s; }
-        @media (prefers-reduced-motion: reduce) { .demo-fig, .demo-fig > div { animation: none !important; } }
+        /* ===== 运动演示：2D 人物 SVG 骨骼动画 =====
+           关节结构：外层 g 用 transform=translate 定位到关节轴心（静态），内层 g.j-anim 做 CSS 旋转；
+           内层 g 内含不可见圆形稳定器（半径 ≥ 肢体最大摆幅），使 fill-box 包围盒恒为以轴心为圆心的圆，
+           transform-origin: 50% 50% 即恒定锁定轴心，子关节弯曲时不漂移。 */
+        .demo-wrap-svg { width: 148px; margin: 0 auto; position: relative; }
+        .demo-svg { width: 100%; height: auto; display: block; overflow: visible; }
+        .demo-svg .j-anim { transform-box: fill-box; transform-origin: 50% 50%; }
+        .demo-svg .j-stab { opacity: 0; }
+        /* 开合跳 */
+        @keyframes svg-jj-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
+        @keyframes svg-jj-shl { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(150deg); } }
+        @keyframes svg-jj-shr { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-150deg); } }
+        @keyframes svg-jj-hipl { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(30deg); } }
+        @keyframes svg-jj-hipr { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-30deg); } }
+        .demo-svg-jumping-jack .j-body { animation: svg-jj-bob 1s ease-in-out infinite; }
+        .demo-svg-jumping-jack .j-shoulder-l { animation: svg-jj-shl 1s ease-in-out infinite; }
+        .demo-svg-jumping-jack .j-shoulder-r { animation: svg-jj-shr 1s ease-in-out infinite; }
+        .demo-svg-jumping-jack .j-hip-l { animation: svg-jj-hipl 1s ease-in-out infinite; }
+        .demo-svg-jumping-jack .j-hip-r { animation: svg-jj-hipr 1s ease-in-out infinite; }
+        /* 深蹲 */
+        @keyframes svg-sq-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(36px); } }
+        @keyframes svg-sq-hipl { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(22deg); } }
+        @keyframes svg-sq-hipr { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-22deg); } }
+        @keyframes svg-sq-kneel { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-38deg); } }
+        @keyframes svg-sq-kneer { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(38deg); } }
+        @keyframes svg-sq-shl { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(85deg); } }
+        @keyframes svg-sq-shr { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-85deg); } }
+        .demo-svg-squat .j-body { animation: svg-sq-bob 1.8s ease-in-out infinite; }
+        .demo-svg-squat .j-hip-l { animation: svg-sq-hipl 1.8s ease-in-out infinite; }
+        .demo-svg-squat .j-hip-r { animation: svg-sq-hipr 1.8s ease-in-out infinite; }
+        .demo-svg-squat .j-knee-l { animation: svg-sq-kneel 1.8s ease-in-out infinite; }
+        .demo-svg-squat .j-knee-r { animation: svg-sq-kneer 1.8s ease-in-out infinite; }
+        .demo-svg-squat .j-shoulder-l { animation: svg-sq-shl 1.8s ease-in-out infinite; }
+        .demo-svg-squat .j-shoulder-r { animation: svg-sq-shr 1.8s ease-in-out infinite; }
+        /* 高抬腿 */
+        @keyframes svg-hk-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        @keyframes svg-hk-hipl { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(68deg); } }
+        @keyframes svg-hk-hipr { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-68deg); } }
+        @keyframes svg-hk-kneel { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-75deg); } }
+        @keyframes svg-hk-kneer { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(75deg); } }
+        @keyframes svg-hk-shl { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(25deg); } }
+        @keyframes svg-hk-shr { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-25deg); } }
+        .demo-svg-high-knee .j-body { animation: svg-hk-bob 0.7s ease-in-out infinite; }
+        .demo-svg-high-knee .j-hip-l { animation: svg-hk-hipl 0.7s ease-in-out infinite; }
+        .demo-svg-high-knee .j-hip-r { animation: svg-hk-hipr 0.7s ease-in-out infinite; animation-delay: -0.35s; }
+        .demo-svg-high-knee .j-knee-l { animation: svg-hk-kneel 0.7s ease-in-out infinite; }
+        .demo-svg-high-knee .j-knee-r { animation: svg-hk-kneer 0.7s ease-in-out infinite; animation-delay: -0.35s; }
+        .demo-svg-high-knee .j-shoulder-l { animation: svg-hk-shl 0.7s ease-in-out infinite; animation-delay: -0.35s; }
+        .demo-svg-high-knee .j-shoulder-r { animation: svg-hk-shr 0.7s ease-in-out infinite; }
+        /* 慢跑 */
+        @keyframes svg-jog-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+        @keyframes svg-jog-hipl { 0%,100% { transform: rotate(-10deg); } 50% { transform: rotate(26deg); } }
+        @keyframes svg-jog-hipr { 0%,100% { transform: rotate(10deg); } 50% { transform: rotate(-26deg); } }
+        @keyframes svg-jog-kneel { 0%,100% { transform: rotate(-5deg); } 50% { transform: rotate(-28deg); } }
+        @keyframes svg-jog-kneer { 0%,100% { transform: rotate(5deg); } 50% { transform: rotate(28deg); } }
+        @keyframes svg-jog-shl { 0%,100% { transform: rotate(8deg); } 50% { transform: rotate(-24deg); } }
+        @keyframes svg-jog-shr { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(24deg); } }
+        @keyframes svg-jog-elbl { 0%,100% { transform: rotate(-35deg); } 50% { transform: rotate(-50deg); } }
+        @keyframes svg-jog-elbr { 0%,100% { transform: rotate(35deg); } 50% { transform: rotate(50deg); } }
+        .demo-svg-jog .j-body { animation: svg-jog-bob 0.9s ease-in-out infinite; }
+        .demo-svg-jog .j-hip-l { animation: svg-jog-hipl 0.9s ease-in-out infinite; }
+        .demo-svg-jog .j-hip-r { animation: svg-jog-hipr 0.9s ease-in-out infinite; animation-delay: -0.45s; }
+        .demo-svg-jog .j-knee-l { animation: svg-jog-kneel 0.9s ease-in-out infinite; }
+        .demo-svg-jog .j-knee-r { animation: svg-jog-kneer 0.9s ease-in-out infinite; animation-delay: -0.45s; }
+        .demo-svg-jog .j-shoulder-l { animation: svg-jog-shl 0.9s ease-in-out infinite; animation-delay: -0.45s; }
+        .demo-svg-jog .j-shoulder-r { animation: svg-jog-shr 0.9s ease-in-out infinite; }
+        .demo-svg-jog .j-elbow-l { animation: svg-jog-elbl 0.9s ease-in-out infinite; animation-delay: -0.45s; }
+        .demo-svg-jog .j-elbow-r { animation: svg-jog-elbr 0.9s ease-in-out infinite; }
+        /* 快跑 */
+        @keyframes svg-sp-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-11px); } }
+        @keyframes svg-sp-hipl { 0%,100% { transform: rotate(-15deg); } 50% { transform: rotate(42deg); } }
+        @keyframes svg-sp-hipr { 0%,100% { transform: rotate(15deg); } 50% { transform: rotate(-42deg); } }
+        @keyframes svg-sp-kneel { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(-45deg); } }
+        @keyframes svg-sp-kneer { 0%,100% { transform: rotate(8deg); } 50% { transform: rotate(45deg); } }
+        @keyframes svg-sp-shl { 0%,100% { transform: rotate(12deg); } 50% { transform: rotate(-38deg); } }
+        @keyframes svg-sp-shr { 0%,100% { transform: rotate(-12deg); } 50% { transform: rotate(38deg); } }
+        @keyframes svg-sp-elbl { 0%,100% { transform: rotate(-50deg); } 50% { transform: rotate(-70deg); } }
+        @keyframes svg-sp-elbr { 0%,100% { transform: rotate(50deg); } 50% { transform: rotate(70deg); } }
+        .demo-svg-sprint .j-body { animation: svg-sp-bob 0.5s ease-in-out infinite; }
+        .demo-svg-sprint .j-hip-l { animation: svg-sp-hipl 0.5s ease-in-out infinite; }
+        .demo-svg-sprint .j-hip-r { animation: svg-sp-hipr 0.5s ease-in-out infinite; animation-delay: -0.25s; }
+        .demo-svg-sprint .j-knee-l { animation: svg-sp-kneel 0.5s ease-in-out infinite; }
+        .demo-svg-sprint .j-knee-r { animation: svg-sp-kneer 0.5s ease-in-out infinite; animation-delay: -0.25s; }
+        .demo-svg-sprint .j-shoulder-l { animation: svg-sp-shl 0.5s ease-in-out infinite; animation-delay: -0.25s; }
+        .demo-svg-sprint .j-shoulder-r { animation: svg-sp-shr 0.5s ease-in-out infinite; }
+        .demo-svg-sprint .j-elbow-l { animation: svg-sp-elbl 0.5s ease-in-out infinite; animation-delay: -0.25s; }
+        .demo-svg-sprint .j-elbow-r { animation: svg-sp-elbr 0.5s ease-in-out infinite; }
+        @media (prefers-reduced-motion: reduce) { .demo-svg .j-anim, .demo-svg .j-body { animation: none !important; } }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
@@ -404,18 +425,60 @@
           );
         }
 
-        // ===== 运动演示小人：纯 CSS 骨骼动画，按 exerciseId 切换动作 =====
+        // ===== 运动演示：2D 人物 SVG（肩/肘/髋/膝四关节，双节肢体），按 exerciseId 切换动作 =====
         function ExerciseDemo({ exerciseId }) {
+          const skin = '#f6c391', hair = '#374151', top = '#f97316', topDark = '#dd6a17', pants = '#1f2937';
+          const leg = (side) => (
+            <g transform={'translate(' + (side === 'l' ? 61 : 79) + ',128)'}>
+              <g className={'j-anim ' + (side === 'l' ? 'j-hip-l' : 'j-hip-r')}>
+                <circle cx="0" cy="0" r="105" className="j-stab" fill="#000" opacity="0"/>
+                <rect x="-8.5" y="0" width="17" height="42" rx="8.5" fill={skin}/>
+                <g transform="translate(0,42)">
+                  <g className={'j-anim ' + (side === 'l' ? 'j-knee-l' : 'j-knee-r')}>
+                    <circle cx="0" cy="0" r="60" className="j-stab" fill="#000" opacity="0"/>
+                    <rect x="-7" y="0" width="14" height="38" rx="7" fill={skin}/>
+                    <rect x="-11" y="34" width="26" height="14" rx="7" fill="#ffffff"/>
+                    <rect x="-11" y="43" width="26" height="5" rx="2.5" fill={top}/>
+                  </g>
+                </g>
+              </g>
+            </g>
+          );
+          const arm = (side) => (
+            <g transform={'translate(' + (side === 'l' ? 52 : 88) + ',62)'}>
+              <g className={'j-anim ' + (side === 'l' ? 'j-shoulder-l' : 'j-shoulder-r')}>
+                <circle cx="0" cy="0" r="85" className="j-stab" fill="#000" opacity="0"/>
+                <rect x="-9" y="-2" width="18" height="14" rx="7" fill={topDark}/>
+                <rect x="-7.5" y="0" width="15" height="36" rx="7.5" fill={skin}/>
+                <g transform="translate(0,36)">
+                  <g className={'j-anim ' + (side === 'l' ? 'j-elbow-l' : 'j-elbow-r')}>
+                    <circle cx="0" cy="0" r="45" className="j-stab" fill="#000" opacity="0"/>
+                    <rect x="-6.5" y="0" width="13" height="30" rx="6.5" fill={skin}/>
+                    <circle cx="0" cy="34" r="7.5" fill={skin}/>
+                  </g>
+                </g>
+              </g>
+            </g>
+          );
           return (
-            <div className="demo-wrap">
-              <div className={'demo-fig demo-' + exerciseId}>
-                <div className="d-head"></div>
-                <div className="d-torso"></div>
-                <div className="d-arm d-arm-l"></div>
-                <div className="d-arm d-arm-r"></div>
-                <div className="d-leg d-leg-l"></div>
-                <div className="d-leg d-leg-r"></div>
-              </div>
+            <div className="demo-wrap-svg">
+              <svg viewBox="0 0 140 230" className={'demo-svg demo-svg-' + exerciseId}>
+                <ellipse cx="70" cy="220" rx="44" ry="7" fill={top} opacity="0.15"/>
+                <g className="j-body">
+                  {leg('l')}
+                  {leg('r')}
+                  <path d="M53 100 L87 100 L91 130 L78 130 L70 114 L62 130 L49 130 Z" fill={pants}/>
+                  <rect x="64" y="38" width="12" height="14" rx="5" fill={skin}/>
+                  <path d="M50 58 Q70 48 90 58 L84 104 Q70 109 56 104 Z" fill={top}/>
+                  <path d="M50 58 Q70 48 90 58 L89 66 Q70 57 51 66 Z" fill={topDark} opacity="0.6"/>
+                  {arm('l')}
+                  {arm('r')}
+                  <g className="j-head">
+                    <circle cx="70" cy="26" r="15" fill={skin}/>
+                    <path d="M55 27 Q54 11 70 11 Q86 11 85 27 Q80 17 74 19 Q70 21 66 19 Q60 17 55 27 Z" fill={hair}/>
+                  </g>
+                </g>
+              </svg>
             </div>
           );
         }
