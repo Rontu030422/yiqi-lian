@@ -41,61 +41,59 @@
         .d-leg { top: 88px; width: 8px; height: 58px; border-radius: 4px; transform-origin: top center; }
         .d-leg-l { left: 50%; margin-left: -10px; }
         .d-leg-r { left: 50%; margin-left: 2px; }
-        /* 开合跳：跳起 + 手脚张开 */
+        /* 开合跳：跳起 + 手脚向外张开（CSS 里正角度=向左摆：左肢用正、右肢用负） */
         @keyframes d-jj-bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
-        @keyframes d-jj-arm-l { 0%,100% { transform: rotate(6deg); } 50% { transform: rotate(-160deg); } }
-        @keyframes d-jj-arm-r { 0%,100% { transform: rotate(-6deg); } 50% { transform: rotate(160deg); } }
-        @keyframes d-jj-leg-l { 0%,100% { transform: rotate(3deg); } 50% { transform: rotate(-32deg); } }
-        @keyframes d-jj-leg-r { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(32deg); } }
+        @keyframes d-jj-arm-l { 0%,100% { transform: rotate(6deg); } 50% { transform: rotate(150deg); } }
+        @keyframes d-jj-arm-r { 0%,100% { transform: rotate(-6deg); } 50% { transform: rotate(-150deg); } }
+        @keyframes d-jj-leg-l { 0%,100% { transform: rotate(3deg); } 50% { transform: rotate(30deg); } }
+        @keyframes d-jj-leg-r { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(-30deg); } }
         .demo-jumping-jack { animation: d-jj-bounce 1s ease-in-out infinite; }
         .demo-jumping-jack .d-arm-l { animation: d-jj-arm-l 1s ease-in-out infinite; }
         .demo-jumping-jack .d-arm-r { animation: d-jj-arm-r 1s ease-in-out infinite; }
         .demo-jumping-jack .d-leg-l { animation: d-jj-leg-l 1s ease-in-out infinite; }
         .demo-jumping-jack .d-leg-r { animation: d-jj-leg-r 1s ease-in-out infinite; }
-        /* 深蹲：下蹲 + 手臂前举 */
+        /* 深蹲：下蹲 + 手臂向两侧上举 */
         @keyframes d-sq-drop { 0%,100% { transform: translateY(0); } 50% { transform: translateY(38px); } }
-        @keyframes d-sq-torso { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(16deg); } }
         @keyframes d-sq-leg { 0%,100% { transform: scaleY(1); } 50% { transform: scaleY(0.5); } }
-        @keyframes d-sq-arm-l { 0%,100% { transform: rotate(8deg); } 50% { transform: rotate(-80deg); } }
-        @keyframes d-sq-arm-r { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(80deg); } }
+        @keyframes d-sq-arm-l { 0%,100% { transform: rotate(6deg); } 50% { transform: rotate(100deg); } }
+        @keyframes d-sq-arm-r { 0%,100% { transform: rotate(-6deg); } 50% { transform: rotate(-100deg); } }
         .demo-squat { animation: d-sq-drop 1.8s ease-in-out infinite; }
-        .demo-squat .d-torso { animation: d-sq-torso 1.8s ease-in-out infinite; }
         .demo-squat .d-leg-l, .demo-squat .d-leg-r { animation: d-sq-leg 1.8s ease-in-out infinite; }
         .demo-squat .d-arm-l { animation: d-sq-arm-l 1.8s ease-in-out infinite; }
         .demo-squat .d-arm-r { animation: d-sq-arm-r 1.8s ease-in-out infinite; }
-        /* 高抬腿：双腿交替抬起 */
+        /* 高抬腿：双腿交替向外抬起 */
         @keyframes d-hk-bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-        @keyframes d-hk-leg-l { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-70deg); } }
-        @keyframes d-hk-leg-r { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(70deg); } }
-        @keyframes d-hk-arm-l { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(35deg); } }
-        @keyframes d-hk-arm-r { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-35deg); } }
+        @keyframes d-hk-leg-l { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(70deg); } }
+        @keyframes d-hk-leg-r { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-70deg); } }
+        @keyframes d-hk-arm-l { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(25deg); } }
+        @keyframes d-hk-arm-r { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-25deg); } }
         .demo-high-knee { animation: d-hk-bounce 0.7s ease-in-out infinite; }
         .demo-high-knee .d-leg-l { animation: d-hk-leg-l 0.7s ease-in-out infinite; }
         .demo-high-knee .d-leg-r { animation: d-hk-leg-r 0.7s ease-in-out infinite; animation-delay: -0.35s; }
         .demo-high-knee .d-arm-l { animation: d-hk-arm-l 0.7s ease-in-out infinite; animation-delay: -0.35s; }
         .demo-high-knee .d-arm-r { animation: d-hk-arm-r 0.7s ease-in-out infinite; }
-        /* 慢跑：小幅摆腿摆臂 */
+        /* 慢跑：双腿交替小幅摆动 */
         @keyframes d-jog-bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-        @keyframes d-jog-leg-l { 0%,100% { transform: rotate(5deg); } 50% { transform: rotate(-32deg); } }
-        @keyframes d-jog-leg-r { 0%,100% { transform: rotate(-5deg); } 50% { transform: rotate(32deg); } }
-        @keyframes d-jog-arm-l { 0%,100% { transform: rotate(-5deg); } 50% { transform: rotate(28deg); } }
-        @keyframes d-jog-arm-r { 0%,100% { transform: rotate(5deg); } 50% { transform: rotate(-28deg); } }
+        @keyframes d-jog-leg-l { 0%,100% { transform: rotate(-5deg); } 50% { transform: rotate(30deg); } }
+        @keyframes d-jog-leg-r { 0%,100% { transform: rotate(5deg); } 50% { transform: rotate(-30deg); } }
+        @keyframes d-jog-arm-l { 0%,100% { transform: rotate(5deg); } 50% { transform: rotate(-20deg); } }
+        @keyframes d-jog-arm-r { 0%,100% { transform: rotate(-5deg); } 50% { transform: rotate(20deg); } }
         .demo-jog { animation: d-jog-bounce 0.9s ease-in-out infinite; }
         .demo-jog .d-leg-l { animation: d-jog-leg-l 0.9s ease-in-out infinite; }
         .demo-jog .d-leg-r { animation: d-jog-leg-r 0.9s ease-in-out infinite; animation-delay: -0.45s; }
-        .demo-jog .d-arm-l { animation: d-jog-arm-l 0.9s ease-in-out infinite; animation-delay: -0.45s; }
-        .demo-jog .d-arm-r { animation: d-jog-arm-r 0.9s ease-in-out infinite; }
-        /* 快跑：大幅高频摆动 */
+        .demo-jog .d-arm-l { animation: d-jog-arm-l 0.9s ease-in-out infinite; }
+        .demo-jog .d-arm-r { animation: d-jog-arm-r 0.9s ease-in-out infinite; animation-delay: -0.45s; }
+        /* 快跑：双腿交替大幅高频摆动 */
         @keyframes d-sp-bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        @keyframes d-sp-leg-l { 0%,100% { transform: rotate(8deg); } 50% { transform: rotate(-55deg); } }
-        @keyframes d-sp-leg-r { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(55deg); } }
-        @keyframes d-sp-arm-l { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(50deg); } }
-        @keyframes d-sp-arm-r { 0%,100% { transform: rotate(8deg); } 50% { transform: rotate(-50deg); } }
+        @keyframes d-sp-leg-l { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(50deg); } }
+        @keyframes d-sp-leg-r { 0%,100% { transform: rotate(8deg); } 50% { transform: rotate(-50deg); } }
+        @keyframes d-sp-arm-l { 0%,100% { transform: rotate(8deg); } 50% { transform: rotate(-40deg); } }
+        @keyframes d-sp-arm-r { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(40deg); } }
         .demo-sprint { animation: d-sp-bounce 0.45s ease-in-out infinite; }
         .demo-sprint .d-leg-l { animation: d-sp-leg-l 0.45s ease-in-out infinite; }
         .demo-sprint .d-leg-r { animation: d-sp-leg-r 0.45s ease-in-out infinite; animation-delay: -0.225s; }
-        .demo-sprint .d-arm-l { animation: d-sp-arm-l 0.45s ease-in-out infinite; animation-delay: -0.225s; }
-        .demo-sprint .d-arm-r { animation: d-sp-arm-r 0.45s ease-in-out infinite; }
+        .demo-sprint .d-arm-l { animation: d-sp-arm-l 0.45s ease-in-out infinite; }
+        .demo-sprint .d-arm-r { animation: d-sp-arm-r 0.45s ease-in-out infinite; animation-delay: -0.225s; }
         @media (prefers-reduced-motion: reduce) { .demo-fig, .demo-fig > div { animation: none !important; } }
     </style>
 </head>
