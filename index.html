@@ -28,6 +28,75 @@
         .a-slide-up { animation: yq-slide-up 0.3s ease-out; }
         @keyframes yq-pulse-soft { 0%, 100% { opacity: 1; } 50% { opacity: 0.75; } }
         .a-pulse-soft { animation: yq-pulse-soft 2s infinite; }
+        /* ===== 运动演示小人：纯 CSS 骨骼动画 ===== */
+        .demo-wrap { position: relative; width: 130px; margin: 0 auto; }
+        .demo-wrap::after { content: ''; position: absolute; bottom: -2px; left: 50%; width: 96px; height: 10px; margin-left: -48px; border-radius: 50%; background: rgba(249,115,22,0.15); }
+        .demo-fig { position: relative; width: 110px; height: 165px; margin: 0 auto; }
+        .demo-fig > div { position: absolute; background: #1f2937; }
+        .d-head { top: 0; left: 50%; width: 30px; height: 30px; margin-left: -15px; border-radius: 50%; }
+        .d-torso { top: 32px; left: 50%; width: 9px; height: 58px; margin-left: -4.5px; border-radius: 5px; transform-origin: top center; }
+        .d-arm { top: 36px; width: 7px; height: 46px; border-radius: 4px; transform-origin: top center; }
+        .d-arm-l { left: 50%; margin-left: -9px; }
+        .d-arm-r { left: 50%; margin-left: 2px; }
+        .d-leg { top: 88px; width: 8px; height: 58px; border-radius: 4px; transform-origin: top center; }
+        .d-leg-l { left: 50%; margin-left: -10px; }
+        .d-leg-r { left: 50%; margin-left: 2px; }
+        /* 开合跳：跳起 + 手脚张开 */
+        @keyframes d-jj-bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
+        @keyframes d-jj-arm-l { 0%,100% { transform: rotate(6deg); } 50% { transform: rotate(-160deg); } }
+        @keyframes d-jj-arm-r { 0%,100% { transform: rotate(-6deg); } 50% { transform: rotate(160deg); } }
+        @keyframes d-jj-leg-l { 0%,100% { transform: rotate(3deg); } 50% { transform: rotate(-32deg); } }
+        @keyframes d-jj-leg-r { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(32deg); } }
+        .demo-jumping-jack { animation: d-jj-bounce 1s ease-in-out infinite; }
+        .demo-jumping-jack .d-arm-l { animation: d-jj-arm-l 1s ease-in-out infinite; }
+        .demo-jumping-jack .d-arm-r { animation: d-jj-arm-r 1s ease-in-out infinite; }
+        .demo-jumping-jack .d-leg-l { animation: d-jj-leg-l 1s ease-in-out infinite; }
+        .demo-jumping-jack .d-leg-r { animation: d-jj-leg-r 1s ease-in-out infinite; }
+        /* 深蹲：下蹲 + 手臂前举 */
+        @keyframes d-sq-drop { 0%,100% { transform: translateY(0); } 50% { transform: translateY(38px); } }
+        @keyframes d-sq-torso { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(16deg); } }
+        @keyframes d-sq-leg { 0%,100% { transform: scaleY(1); } 50% { transform: scaleY(0.5); } }
+        @keyframes d-sq-arm-l { 0%,100% { transform: rotate(8deg); } 50% { transform: rotate(-80deg); } }
+        @keyframes d-sq-arm-r { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(80deg); } }
+        .demo-squat { animation: d-sq-drop 1.8s ease-in-out infinite; }
+        .demo-squat .d-torso { animation: d-sq-torso 1.8s ease-in-out infinite; }
+        .demo-squat .d-leg-l, .demo-squat .d-leg-r { animation: d-sq-leg 1.8s ease-in-out infinite; }
+        .demo-squat .d-arm-l { animation: d-sq-arm-l 1.8s ease-in-out infinite; }
+        .demo-squat .d-arm-r { animation: d-sq-arm-r 1.8s ease-in-out infinite; }
+        /* 高抬腿：双腿交替抬起 */
+        @keyframes d-hk-bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        @keyframes d-hk-leg-l { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-70deg); } }
+        @keyframes d-hk-leg-r { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(70deg); } }
+        @keyframes d-hk-arm-l { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(35deg); } }
+        @keyframes d-hk-arm-r { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-35deg); } }
+        .demo-high-knee { animation: d-hk-bounce 0.7s ease-in-out infinite; }
+        .demo-high-knee .d-leg-l { animation: d-hk-leg-l 0.7s ease-in-out infinite; }
+        .demo-high-knee .d-leg-r { animation: d-hk-leg-r 0.7s ease-in-out infinite; animation-delay: -0.35s; }
+        .demo-high-knee .d-arm-l { animation: d-hk-arm-l 0.7s ease-in-out infinite; animation-delay: -0.35s; }
+        .demo-high-knee .d-arm-r { animation: d-hk-arm-r 0.7s ease-in-out infinite; }
+        /* 慢跑：小幅摆腿摆臂 */
+        @keyframes d-jog-bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        @keyframes d-jog-leg-l { 0%,100% { transform: rotate(5deg); } 50% { transform: rotate(-32deg); } }
+        @keyframes d-jog-leg-r { 0%,100% { transform: rotate(-5deg); } 50% { transform: rotate(32deg); } }
+        @keyframes d-jog-arm-l { 0%,100% { transform: rotate(-5deg); } 50% { transform: rotate(28deg); } }
+        @keyframes d-jog-arm-r { 0%,100% { transform: rotate(5deg); } 50% { transform: rotate(-28deg); } }
+        .demo-jog { animation: d-jog-bounce 0.9s ease-in-out infinite; }
+        .demo-jog .d-leg-l { animation: d-jog-leg-l 0.9s ease-in-out infinite; }
+        .demo-jog .d-leg-r { animation: d-jog-leg-r 0.9s ease-in-out infinite; animation-delay: -0.45s; }
+        .demo-jog .d-arm-l { animation: d-jog-arm-l 0.9s ease-in-out infinite; animation-delay: -0.45s; }
+        .demo-jog .d-arm-r { animation: d-jog-arm-r 0.9s ease-in-out infinite; }
+        /* 快跑：大幅高频摆动 */
+        @keyframes d-sp-bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes d-sp-leg-l { 0%,100% { transform: rotate(8deg); } 50% { transform: rotate(-55deg); } }
+        @keyframes d-sp-leg-r { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(55deg); } }
+        @keyframes d-sp-arm-l { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(50deg); } }
+        @keyframes d-sp-arm-r { 0%,100% { transform: rotate(8deg); } 50% { transform: rotate(-50deg); } }
+        .demo-sprint { animation: d-sp-bounce 0.45s ease-in-out infinite; }
+        .demo-sprint .d-leg-l { animation: d-sp-leg-l 0.45s ease-in-out infinite; }
+        .demo-sprint .d-leg-r { animation: d-sp-leg-r 0.45s ease-in-out infinite; animation-delay: -0.225s; }
+        .demo-sprint .d-arm-l { animation: d-sp-arm-l 0.45s ease-in-out infinite; animation-delay: -0.225s; }
+        .demo-sprint .d-arm-r { animation: d-sp-arm-r 0.45s ease-in-out infinite; }
+        @media (prefers-reduced-motion: reduce) { .demo-fig, .demo-fig > div { animation: none !important; } }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
@@ -337,6 +406,22 @@
           );
         }
 
+        // ===== 运动演示小人：纯 CSS 骨骼动画，按 exerciseId 切换动作 =====
+        function ExerciseDemo({ exerciseId }) {
+          return (
+            <div className="demo-wrap">
+              <div className={'demo-fig demo-' + exerciseId}>
+                <div className="d-head"></div>
+                <div className="d-torso"></div>
+                <div className="d-arm d-arm-l"></div>
+                <div className="d-arm d-arm-r"></div>
+                <div className="d-leg d-leg-l"></div>
+                <div className="d-leg d-leg-r"></div>
+              </div>
+            </div>
+          );
+        }
+
         function DoingView({ exercise, setView, onDone }) {
           const [timeLeft, setTimeLeft] = useState(exercise.seconds || 0);
           const [setIdx, setSetIdx] = useState(0); // 快跑：第几组（0-based）
@@ -381,8 +466,8 @@
               <div className="a-fade-in pb-28 px-5 pt-8">
                 <button onClick={() => setView('pick')} className="text-gray-500 font-bold mb-4">← 返回</button>
                 <div className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 text-center a-zoom-in">
-                  <div className="text-6xl mb-4">{exercise.emoji}</div>
-                  <h1 className="text-3xl font-black">{exercise.name}</h1>
+                  <ExerciseDemo exerciseId={exercise.id} />
+                  <h1 className="text-3xl font-black mt-4">{exercise.name} <span className="text-2xl">{exercise.emoji}</span></h1>
                   <p className="text-gray-500 font-medium mt-2">目标：<span className="text-orange-500 font-black text-xl">{exercise.target} {exercise.unit}</span></p>
                   <p className="text-sm text-gray-400 mt-4">按你的节奏完成，做完点下面的按钮</p>
                   <button
@@ -400,8 +485,8 @@
           return (
             <div className="a-fade-in h-screen flex flex-col items-center justify-between py-16 px-6">
               <div className="text-center">
-                <div className="text-5xl mb-2">{exercise.emoji}</div>
-                <h2 className="text-2xl font-bold text-gray-400">{exercise.name}</h2>
+                <ExerciseDemo exerciseId={exercise.id} />
+                <h2 className="text-2xl font-bold text-gray-400 mt-3">{exercise.name} {exercise.emoji}</h2>
                 {exercise.kind === 'sets' && (
                   <p className="mt-2 inline-block bg-orange-100 text-orange-600 font-black px-4 py-1 rounded-full">
                     第 {setIdx + 1} / {totalSets} 组
