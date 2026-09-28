@@ -136,7 +136,7 @@
         @keyframes svg-ssq-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(34px); } }
         @keyframes svg-ssq-hip { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-62deg); } }
         @keyframes svg-ssq-knee { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(82deg); } }
-        @keyframes svg-ssq-torso { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-10deg); } }
+        @keyframes svg-ssq-torso { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(12deg); } }
         @keyframes svg-ssq-sh { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-55deg); } }
         @keyframes svg-ssq-el { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-15deg); } }
         .demo-svg-squat .j-body { animation: svg-ssq-bob 1.8s ease-in-out infinite; }
@@ -147,8 +147,8 @@
         .demo-svg-squat .j-sel-n, .demo-svg-squat .j-sel-f { animation: svg-ssq-el 1.8s ease-in-out infinite; }
         /* 高抬腿（侧面）：大腿交替前抬至水平，小腿自然下垂，对侧手臂摆动 */
         @keyframes svg-shk-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-        @keyframes svg-shk-hipn { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-80deg); } }
-        @keyframes svg-shk-hipf { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-80deg); } }
+        @keyframes svg-shk-hipn { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-95deg); } }
+        @keyframes svg-shk-hipf { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-95deg); } }
         @keyframes svg-shk-kneen { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(95deg); } }
         @keyframes svg-shk-kneef { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(95deg); } }
         @keyframes svg-shk-shn { 0%,100% { transform: rotate(24deg); } 50% { transform: rotate(-24deg); } }
@@ -165,7 +165,8 @@
         .demo-svg-high-knee .j-sel-n { animation: svg-shk-eln 0.7s ease-in-out infinite; animation-delay: -0.35s; }
         .demo-svg-high-knee .j-sel-f { animation: svg-shk-elf 0.7s ease-in-out infinite; }
         /* 慢跑（侧面）：跑步步态，前后摆腿，对侧摆臂，轻微前倾 */
-        @keyframes svg-sjog-bob { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-7px) rotate(-5deg); } }
+        @keyframes svg-sjog-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+        @keyframes svg-sjog-torso { 0%,100% { transform: rotate(6deg); } 50% { transform: rotate(8deg); } }
         @keyframes svg-sjog-hipn { 0%,100% { transform: rotate(-35deg); } 50% { transform: rotate(30deg); } }
         @keyframes svg-sjog-hipf { 0%,100% { transform: rotate(-35deg); } 50% { transform: rotate(30deg); } }
         @keyframes svg-sjog-kneen { 0%,100% { transform: rotate(20deg); } 50% { transform: rotate(65deg); } }
@@ -175,6 +176,7 @@
         @keyframes svg-sjog-eln { 0%,100% { transform: rotate(-50deg); } 50% { transform: rotate(-64deg); } }
         @keyframes svg-sjog-elf { 0%,100% { transform: rotate(-50deg); } 50% { transform: rotate(-64deg); } }
         .demo-svg-jog .j-body { animation: svg-sjog-bob 0.9s ease-in-out infinite; }
+        .demo-svg-jog .j-storso { animation: svg-sjog-torso 0.9s ease-in-out infinite; }
         .demo-svg-jog .j-ship-n { animation: svg-sjog-hipn 0.9s ease-in-out infinite; }
         .demo-svg-jog .j-ship-f { animation: svg-sjog-hipf 0.9s ease-in-out infinite; animation-delay: -0.45s; }
         .demo-svg-jog .j-sknee-n { animation: svg-sjog-kneen 0.9s ease-in-out infinite; }
@@ -184,7 +186,8 @@
         .demo-svg-jog .j-sel-n { animation: svg-sjog-eln 0.9s ease-in-out infinite; animation-delay: -0.45s; }
         .demo-svg-jog .j-sel-f { animation: svg-sjog-elf 0.9s ease-in-out infinite; }
         /* 快跑（侧面）：步幅更大、频率更快、前倾更多 */
-        @keyframes svg-ssp-bob { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-11px) rotate(-9deg); } }
+        @keyframes svg-ssp-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-11px); } }
+        @keyframes svg-ssp-torso { 0%,100% { transform: rotate(9deg); } 50% { transform: rotate(12deg); } }
         @keyframes svg-ssp-hipn { 0%,100% { transform: rotate(-55deg); } 50% { transform: rotate(40deg); } }
         @keyframes svg-ssp-hipf { 0%,100% { transform: rotate(-55deg); } 50% { transform: rotate(40deg); } }
         @keyframes svg-ssp-kneen { 0%,100% { transform: rotate(25deg); } 50% { transform: rotate(85deg); } }
@@ -194,6 +197,7 @@
         @keyframes svg-ssp-eln { 0%,100% { transform: rotate(-55deg); } 50% { transform: rotate(-78deg); } }
         @keyframes svg-ssp-elf { 0%,100% { transform: rotate(-55deg); } 50% { transform: rotate(-78deg); } }
         .demo-svg-sprint .j-body { animation: svg-ssp-bob 0.5s ease-in-out infinite; }
+        .demo-svg-sprint .j-storso { animation: svg-ssp-torso 0.5s ease-in-out infinite; }
         .demo-svg-sprint .j-ship-n { animation: svg-ssp-hipn 0.5s ease-in-out infinite; }
         .demo-svg-sprint .j-ship-f { animation: svg-ssp-hipf 0.5s ease-in-out infinite; animation-delay: -0.25s; }
         .demo-svg-sprint .j-sknee-n { animation: svg-ssp-kneen 0.5s ease-in-out infinite; }
@@ -203,9 +207,9 @@
         .demo-svg-sprint .j-sel-n { animation: svg-ssp-eln 0.5s ease-in-out infinite; animation-delay: -0.25s; }
         .demo-svg-sprint .j-sel-f { animation: svg-ssp-elf 0.5s ease-in-out infinite; }
         /* 跪式俯卧撑（侧面跪姿）：以膝为轴身体下压，手臂屈肘，手掌着地不动 */
-        @keyframes svg-kn-body { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(10deg); } }
-        @keyframes svg-kn-sh { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-29deg); } }
-        @keyframes svg-kn-el { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(29deg); } }
+        @keyframes svg-kn-body { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(8deg); } }
+        @keyframes svg-kn-sh { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(25deg); } }
+        @keyframes svg-kn-el { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-45deg); } }
         .demo-svg-kneeling-pushup .j-kn-body { animation: svg-kn-body 1.6s ease-in-out infinite; }
         .demo-svg-kneeling-pushup .j-kn-sh { animation: svg-kn-sh 1.6s ease-in-out infinite; }
         .demo-svg-kneeling-pushup .j-kn-el { animation: svg-kn-el 1.6s ease-in-out infinite; }
