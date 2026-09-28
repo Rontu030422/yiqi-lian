@@ -206,13 +206,7 @@
         .demo-svg-sprint .j-ssh-f { animation: svg-ssp-shf 0.5s ease-in-out infinite; }
         .demo-svg-sprint .j-sel-n { animation: svg-ssp-eln 0.5s ease-in-out infinite; animation-delay: -0.25s; }
         .demo-svg-sprint .j-sel-f { animation: svg-ssp-elf 0.5s ease-in-out infinite; }
-        /* 跪式俯卧撑（侧面跪姿）：以膝为轴身体下压，手臂屈肘，手掌着地不动 */
-        @keyframes svg-kn-body { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(8deg); } }
-        @keyframes svg-kn-sh { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(25deg); } }
-        @keyframes svg-kn-el { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-45deg); } }
-        .demo-svg-kneeling-pushup .j-kn-body { animation: svg-kn-body 1.6s ease-in-out infinite; }
-        .demo-svg-kneeling-pushup .j-kn-sh { animation: svg-kn-sh 1.6s ease-in-out infinite; }
-        .demo-svg-kneeling-pushup .j-kn-el { animation: svg-kn-el 1.6s ease-in-out infinite; }
+        /* 跪式俯卧撑：改用 SMIL animateTransform（CSS transform 在深层嵌套 SVG 上不生效） */
         @media (prefers-reduced-motion: reduce) { .demo-svg .j-anim, .demo-svg .j-body { animation: none !important; } }
     </style>
 </head>
@@ -670,7 +664,8 @@
                   <rect x="24" y="185" width="48" height="11" rx="5.5" fill={skin}/>
                   <rect x="16" y="183" width="16" height="14" rx="6" fill="#d1d5db"/>
                   <g transform="translate(70,194)">
-                    <g className="j-anim j-kn-body">
+                    <g className="j-anim">
+                      <animateTransform attributeName="transform" type="rotate" values="0 0 0; 8 0 0; 0 0 0" keyTimes="0; 0.5; 1" dur="1.6s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"/>
                       <circle cx="0" cy="0" r="150" className="j-stab" fill="#000" opacity="0"/>
                       <g transform="rotate(54)">
                         <rect x="-8.5" y="-66" width="17" height="66" rx="8.5" fill={skin}/>
@@ -680,12 +675,14 @@
                         <path d="M-13 -138 Q-12 -150 0 -150 Q12 -150 13 -138 Q7 -143 0 -142 Q-7 -143 -13 -138 Z" fill={hair}/>
                         <g transform="translate(0,-122)">
                           <g transform="rotate(-54)">
-                            <g className="j-anim j-kn-sh">
+                            <g className="j-anim">
+                              <animateTransform attributeName="transform" type="rotate" values="0 0 0; 25 0 0; 0 0 0" keyTimes="0; 0.5; 1" dur="1.6s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"/>
                               <circle cx="0" cy="0" r="80" className="j-stab" fill="#000" opacity="0"/>
                               <rect x="-8" y="-2" width="16" height="12" rx="6" fill={topDark}/>
                               <rect x="-6.5" y="0" width="13" height="34" rx="6.5" fill={skin}/>
                               <g transform="translate(0,34)">
-                                <g className="j-anim j-kn-el">
+                                <g className="j-anim">
+                                  <animateTransform attributeName="transform" type="rotate" values="0 0 0; -45 0 0; 0 0 0" keyTimes="0; 0.5; 1" dur="1.6s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"/>
                                   <circle cx="0" cy="0" r="45" className="j-stab" fill="#000" opacity="0"/>
                                   <rect x="-5.5" y="0" width="11" height="30" rx="5.5" fill={skin}/>
                                   <circle cx="0" cy="33" r="6.5" fill={skin}/>
