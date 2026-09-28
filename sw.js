@@ -5,7 +5,7 @@
  *     Notification API 触发提醒（移动端 SW 常被系统回收，
  *     所以这是"尽力"路径；可靠路径是页面打开时的 in-page 定时器）。
  */
-const CACHE_NAME = 'yiqilian-v3';
+const CACHE_NAME = 'yiqilian-v4';
 const CORE_ASSETS = [
   './',
   './index.html',
