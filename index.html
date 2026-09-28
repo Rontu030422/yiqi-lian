@@ -38,13 +38,9 @@
         .demo-svg .j-stab { opacity: 0; }
         /* 开合跳 */
         @keyframes svg-jj-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
-        @keyframes svg-jj-shl { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-164deg); } }
-        @keyframes svg-jj-shr { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(164deg); } }
         @keyframes svg-jj-hipl { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(30deg); } }
         @keyframes svg-jj-hipr { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-30deg); } }
         .demo-svg-jumping-jack .j-body { animation: svg-jj-bob 1s ease-in-out infinite; }
-        .demo-svg-jumping-jack .j-shoulder-l { animation: svg-jj-shl 1s ease-in-out infinite; }
-        .demo-svg-jumping-jack .j-shoulder-r { animation: svg-jj-shr 1s ease-in-out infinite; }
         .demo-svg-jumping-jack .j-hip-l { animation: svg-jj-hipl 1s ease-in-out infinite; }
         .demo-svg-jumping-jack .j-hip-r { animation: svg-jj-hipr 1s ease-in-out infinite; }
         /* 深蹲 */
@@ -547,9 +543,14 @@
               </g>
             </g>
           );
-          const arm = (side) => (
+          const arm = (side) => {
+            const isJJ = exerciseId === 'jumping-jack';
+            // 开合跳：SMIL 驱动手臂向内上摆拍合；左臂 +164°，右臂 -164°（经实测方向）
+            const smilRot = isJJ ? (side === 'l' ? '164 0 0' : '-164 0 0') : null;
+            return (
             <g transform={'translate(' + (side === 'l' ? 52 : 88) + ',62)'}>
               <g className={'j-anim ' + (side === 'l' ? 'j-shoulder-l' : 'j-shoulder-r')}>
+                {isJJ && <animateTransform attributeName="transform" type="rotate" values={'0 0 0; ' + smilRot + '; 0 0 0'} keyTimes="0; 0.5; 1" dur="1s" repeatCount="indefinite" calcMode="spline" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"/>}
                 <circle cx="0" cy="0" r="85" className="j-stab" fill="#000" opacity="0"/>
                 <rect x="-9" y="-2" width="18" height="14" rx="7" fill={topDark}/>
                 <rect x="-7.5" y="0" width="15" height="36" rx="7.5" fill={skin}/>
@@ -562,7 +563,8 @@
                 </g>
               </g>
             </g>
-          );
+            );
+          };
           return (
             <div className="demo-wrap-svg">
               <svg viewBox="0 0 140 230" className={'demo-svg demo-svg-' + exerciseId}>
