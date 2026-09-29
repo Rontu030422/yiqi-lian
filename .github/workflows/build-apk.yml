@@ -2,6 +2,8 @@
 #
 # 说明：
 # - 在 GitHub 官方 runner 上构建，无需本地 Android SDK/Gradle 环境
+# - runner 自带 Android SDK（ANDROID_HOME），无需第三方 Action 安装，
+#   直接用 sdkmanager 补装 platform-tools / android-34 / build-tools 34.0.0
 # - 构建产物为「未签名」release APK（签名在构建完成后单独进行，
 #   签名密钥不出仓库、不进 Secrets，由维护者在本地完成签名并发布 Release）
 # - 构建成功：把 app-release-unsigned.apk 传到 draft release（tag: unsigned-<sha>）
@@ -46,12 +48,11 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: 安装 Android SDK 命令行工具
-        uses: android-actions/setup-android@v3
-
-      - name: 安装 SDK 组件
+      - name: 安装 SDK 组件（使用 runner 自带 SDK）
         run: |
-          sdkmanager --install "platform-tools" "platforms;android-34" "build-tools;34.0.0"
+          SDKMANAGER=$(ls "$ANDROID_HOME"/cmdline-tools/*/bin/sdkmanager | head -n 1)
+          yes | "$SDKMANAGER" --licenses > /dev/null
+          "$SDKMANAGER" --install "platform-tools" "platforms;android-34" "build-tools;34.0.0"
 
       - name: 安装 npm 依赖
         run: npm ci
