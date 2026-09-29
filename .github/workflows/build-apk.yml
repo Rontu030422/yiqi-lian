@@ -28,7 +28,8 @@ on:
       - 'scripts/**'
       - '.github/workflows/build-apk.yml'
   workflow_dispatch:
-
+permissions:
+contents: write
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -39,7 +40,7 @@ jobs:
       - name: 安装 Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: 安装 JDK 17
