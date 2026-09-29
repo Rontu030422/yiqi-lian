@@ -744,8 +744,9 @@
           } catch (e) {}
         }
 
-        // SW 注册
-        if ('serviceWorker' in navigator) {
+        // SW 注册（原生 App 内跳过，避免与 WebView 缓存冲突）
+        var isNativeApp = !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
+        if ('serviceWorker' in navigator && !isNativeApp) {
           window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js').then(() => {
               pushPlanToSW();

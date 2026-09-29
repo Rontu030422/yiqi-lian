@@ -1,0 +1,9 @@
+node_modules/
+www/
+*.log
+
+# Android 构建产物（不提交，每次 CI/本地重新生成）
+android/app/build/
+android/build/
+android/.gradle/
+android/local.properties
