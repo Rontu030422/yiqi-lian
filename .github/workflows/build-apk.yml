@@ -1,0 +1,90 @@
+# 一起练 Android APK 云端构建
+#
+# 说明：
+# - 在 GitHub 官方 runner 上构建，无需本地 Android SDK/Gradle 环境
+# - 构建产物为「未签名」release APK（签名在构建完成后单独进行，
+#   签名密钥不出仓库、不进 Secrets，由维护者在本地完成签名并发布 Release）
+# - 构建成功：把 app-release-unsigned.apk 传到 draft release（tag: unsigned-<sha>）
+# - 构建失败：把 gradle-build.log 传到 draft release（tag: unsigned-<sha>），便于排查
+#
+# 触发：main 分支有 Web/原生相关文件变更时，或手动 workflow_dispatch
+
+name: 构建 APK
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'manifest.json'
+      - 'icon-*.png'
+      - 'apple-touch-icon.png'
+      - 'capacitor.config.js'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'android/**'
+      - 'scripts/**'
+      - '.github/workflows/build-apk.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: 安装 JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: 安装 Android SDK 命令行工具
+        uses: android-actions/setup-android@v3
+
+      - name: 安装 SDK 组件
+        run: |
+          sdkmanager --install "platform-tools" "platforms;android-34" "build-tools;34.0.0"
+
+      - name: 安装 npm 依赖
+        run: npm ci
+
+      - name: 同步 Web 资源到原生工程
+        run: |
+          sh scripts/sync-www.sh
+          npx cap sync android
+
+      - name: 构建未签名 release APK
+        id: gradle
+        continue-on-error: true
+        run: |
+          cd android
+          ./gradlew assembleRelease --no-daemon 2>&1 | tee ../gradle-build.log
+          exit ${PIPESTATUS[0]}
+
+      - name: 上传未签名 APK（构建成功）
+        if: steps.gradle.outcome == 'success'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: unsigned-${{ github.sha }}
+          name: "未签名构建 ${{ github.sha }}"
+          draft: true
+          prerelease: true
+          files: android/app/build/outputs/apk/release/app-release-unsigned.apk
+
+      - name: 上传构建日志（构建失败）
+        if: steps.gradle.outcome != 'success'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: unsigned-${{ github.sha }}
+          name: "构建失败日志 ${{ github.sha }}"
+          draft: true
+          prerelease: true
+          files: gradle-build.log
