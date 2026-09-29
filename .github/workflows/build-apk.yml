@@ -29,7 +29,7 @@ on:
       - '.github/workflows/build-apk.yml'
   workflow_dispatch:
 permissions:
-contents: write
+  contents: write
 jobs:
   build:
     runs-on: ubuntu-latest
